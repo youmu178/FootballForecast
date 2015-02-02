@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="game_head">
+        <item>所有赛事预测</item>
+        <item>热门重磅预测</item>
+    </string-array>
+
+    <string-array name="hot_kind">
+        <item>胜负</item>
+        <item>大球</item>
+        <item>小球</item>
+        <item>都进球</item>
+    </string-array>
+
+    <string-array name="game_kind">
+
+        <item>德甲</item>
+        <item>英超</item>
+        <item>西甲</item>
+        <item>法甲</item>
+        <item>意甲</item>
+        <item>荷甲</item>
+        <item>葡超</item>
+        <item>世界杯，预选赛，友谊赛</item>
+        <item>美职联</item>
+        <item>欧冠杯</item>
+        <item>土超</item>
+        <item>欧联</item>
+        <item>俄超</item>
+        <item>瑞士超</item>
+        <item>巴甲</item>
+        <item>阿甲</item>
+        <item>瑞典超</item>
+        <item>挪威超</item>
+        <item>丹麦超</item>
+        <item>J联赛</item>
+        <item>解放者杯</item>
+        <item>墨西哥联赛</item>
+        <item>哥伦比亚甲</item>
+        <item>秘鲁甲</item>
+        <item>巴拉圭甲</item>
+        <item>K联赛</item>
+        <item>比利时甲</item>
+        <item>希腊超</item>
+        <item>联合会杯</item>
+        <item>乌克兰超</item>
+        <item>波兰甲</item>
+        <item>亚美尼亚超</item>
+        <item>圣马力诺甲</item>
+        <item>法罗群岛甲</item>
+        <item>苏格兰超</item>
+        <item>北爱尔兰超</item>
+        <item>白俄超</item>
+        <item>哈萨克超</item>
+        <item>爱尔兰超</item>
+        <item>威尔士超</item>
+        <item>格鲁吉亚甲</item>
+        <item>芬兰超</item>
+        <item>阿塞拜疆超</item>
+        <item>斯洛伐克超</item>
+        <item>捷克甲</item>
+        <item>黑山甲</item>
+        <item>冰岛超</item>
+        <item>奥地利甲</item>
+        <item>以色列超</item>
+        <item>保加利亚超</item>
+        <item>塞尔维亚超</item>
+        <item>罗马尼亚甲</item>
+        <item>斯洛文尼亚甲</item>
+        <item>阿尔巴尼亚超</item>
+        <item>爱沙尼亚甲</item>
+        <item>克罗地亚甲</item>
+        <item>摩尔多瓦甲</item>
+        <item>立陶宛甲</item>
+        <item>友谊赛</item>
+        <item>乌拉圭甲</item>
+        <item>厄瓜多尔甲</item>
+        <item>委内瑞拉超</item>
+        <item>智利甲</item>
+
+    </string-array>
+</resources>
