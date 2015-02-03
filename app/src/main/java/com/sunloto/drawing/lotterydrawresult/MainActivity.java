@@ -2,12 +2,15 @@ package com.sunloto.drawing.lotterydrawresult;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.sunloto.drawing.lotterydrawresult.adapter.MainRecyclerAdapter;
 import com.sunloto.drawing.lotterydrawresult.adapter.StickyListAdapter;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
 import com.sunloto.drawing.lotterydrawresult.bean.Result;
@@ -15,6 +18,7 @@ import com.sunloto.drawing.lotterydrawresult.common.WebDefine;
 import com.sunloto.drawing.lotterydrawresult.net.WoZhongLaApi;
 import com.sunloto.drawing.lotterydrawresult.widget.DragLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -33,6 +37,10 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     DragLayout mDragLayout;
     @InjectView(R.id.expandListView)
     ExpandableStickyListHeadersListView mExpandListView;
+    @InjectView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+    private MainRecyclerAdapter mainRecyclerAdapter;
+    private List<HotGame> mGameLists = new ArrayList<HotGame>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
             }
         });
         mExpandListView.setOnItemClickListener(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mainRecyclerAdapter = new MainRecyclerAdapter(this, mGameLists);
+        mRecyclerView.setAdapter(mainRecyclerAdapter);
     }
 
 
@@ -108,11 +121,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
                     if (hotGames != null && !hotGames.isEmpty()) {
+                        mGameLists.clear();
                         for (HotGame hotGame : hotGames) {
-                            hotGame.getHomeTeamName();
-                            hotGame.getAwayTeamName();
-                            Log.d("youzh", "主队：" + hotGame.getHomeTeamName() + "  客队： " + hotGame.getAwayTeamName());
+                            mGameLists.add(hotGame);
                         }
+                        mainRecyclerAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -126,11 +139,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
                     if (hotGames != null && !hotGames.isEmpty()) {
+                        mGameLists.clear();
                         for (HotGame hotGame : hotGames) {
-                            hotGame.getHomeTeamName();
-                            hotGame.getAwayTeamName();
-                            Log.d("youzh", "主队：" + hotGame.getHomeTeamName() + "  客队： " + hotGame.getAwayTeamName());
+                            mGameLists.add(hotGame);
                         }
+                        mainRecyclerAdapter.notifyDataSetChanged();
                     }
                 }
 

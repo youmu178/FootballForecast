@@ -5,4 +5,6 @@
     <color name="color_green">#8CBA00</color>
     <color name="color_drak">#5C656B</color>
     <color name="color_light_drak">#788085</color>
+
+    <color name="lighter_gray">#ddd</color>
 </resources>

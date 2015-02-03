@@ -2,8 +2,7 @@
     android:id="@+id/dragLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main2"
-    >
+    android:background="@drawable/bg_main2">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,21 +13,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
-            android:scrollbars="none"
-            android:listSelector="#00000000"
+            android:layout_marginTop="100dp"
             android:cacheColorHint="#00000000"
             android:divider="@android:color/transparent"
-            />
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-            android:text="预测信息仅供参考"
             android:layout_marginLeft="10dp"
-            android:textColor="@android:color/white"/>
+            android:text="预测信息仅供参考"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
     <com.sunloto.drawing.lotterydrawresult.widget.MyRelativeLayout
@@ -37,6 +36,28 @@
         android:background="@android:color/white"
         android:visibility="visible">
 
-    </com.sunloto.drawing.lotterydrawresult.widget.MyRelativeLayout>
+        <RelativeLayout
+            android:id="@+id/maina_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_football_title">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="预测"
+
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/maina_top"
+            android:scrollbars="vertical"
+            />
+    </com.sunloto.drawing.lotterydrawresult.widget.MyRelativeLayout>
 </com.sunloto.drawing.lotterydrawresult.widget.DragLayout>

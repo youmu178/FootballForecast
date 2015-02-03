@@ -30,4 +30,5 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'com.balysv:material-ripple:1.0.0'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
 }

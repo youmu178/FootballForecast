@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_game_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="dfdfd"
+        android:textColor="#2A6496"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/percent_layout"
+        android:layout_width="280dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/percent_left_tv"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rect_left_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/percent_middle_tv"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rect_middle_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/percent_right_tv"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rect_right_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <View style="@style/divider_horizontal" />
+
+</LinearLayout>
