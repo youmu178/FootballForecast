@@ -7,6 +7,8 @@
     app:rippleColor="#007A33"
     app:rippleHover="true"
     app:rippleOverlay="false"
+    app:rippleInAdapter="true"
+    app:rippleDelayClick="true"
     >
 
     <TextView

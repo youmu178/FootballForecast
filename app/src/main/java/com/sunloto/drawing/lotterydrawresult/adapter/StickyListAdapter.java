@@ -63,6 +63,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         return view;
     }
 
+
     @Override
     public long getHeaderId(int i) {
         return gameList.get(i).getHead().subSequence(0,3).charAt(0);

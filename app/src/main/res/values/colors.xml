@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <drawable name="bg_item_sticky_pressed">#007A33</drawable>
+
+    <color name="color_green">#8CBA00</color>
+    <color name="color_drak">#5C656B</color>
+    <color name="color_light_drak">#788085</color>
 </resources>

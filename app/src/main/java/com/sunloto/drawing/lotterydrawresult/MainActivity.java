@@ -15,14 +15,19 @@ import com.sunloto.drawing.lotterydrawresult.common.WebDefine;
 import com.sunloto.drawing.lotterydrawresult.net.WoZhongLaApi;
 import com.sunloto.drawing.lotterydrawresult.widget.DragLayout;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
-public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener{
+public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
     @InjectView(R.id.dragLayout)
     DragLayout mDragLayout;
@@ -96,13 +101,44 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i("youzh", "位置： " + position);
         mDragLayout.close();
-
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.BASE_URL).build();
         WoZhongLaApi woZhongLaApi = restAdapter.create(WoZhongLaApi.class);
-        for (HotGame hotGame : woZhongLaApi.getLotteryHotList()) {
-            hotGame.getHomeTeamName();
-            hotGame.getAwayTeamName();
-            Log.d("youzh", "主队：" + hotGame.getHomeTeamName() + "  客队： " + hotGame.getAwayTeamName());
+        if (position < 63) {
+            woZhongLaApi.getLottertGameList((position+1)+"", new Callback<List<HotGame>>() {
+                @Override
+                public void success(List<HotGame> hotGames, Response response) {
+                    if (hotGames != null && !hotGames.isEmpty()) {
+                        for (HotGame hotGame : hotGames) {
+                            hotGame.getHomeTeamName();
+                            hotGame.getAwayTeamName();
+                            Log.d("youzh", "主队：" + hotGame.getHomeTeamName() + "  客队： " + hotGame.getAwayTeamName());
+                        }
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+        } else {
+            woZhongLaApi.getLotteryHotList(new Callback<List<HotGame>>() {
+                @Override
+                public void success(List<HotGame> hotGames, Response response) {
+                    if (hotGames != null && !hotGames.isEmpty()) {
+                        for (HotGame hotGame : hotGames) {
+                            hotGame.getHomeTeamName();
+                            hotGame.getAwayTeamName();
+                            Log.d("youzh", "主队：" + hotGame.getHomeTeamName() + "  客队： " + hotGame.getAwayTeamName());
+                        }
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
         }
     }
 }

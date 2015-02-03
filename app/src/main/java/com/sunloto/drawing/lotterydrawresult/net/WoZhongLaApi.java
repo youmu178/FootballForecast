@@ -4,6 +4,7 @@ import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
 
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 
@@ -13,8 +14,8 @@ import retrofit.http.Path;
 public interface WoZhongLaApi {
 
     @GET("/hotgames")
-    List<HotGame> getLotteryHotList();
+    void getLotteryHotList(Callback<List<HotGame>> callback);
 
     @GET("/games/{game}")
-    String getLottertGameList(@Path("game") String gameID);
+    void getLottertGameList(@Path("game") String gameID, Callback<List<HotGame>> callback);
 }
