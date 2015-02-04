@@ -2,7 +2,6 @@ package com.sunloto.drawing.lotterydrawresult.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.sunloto.drawing.lotterydrawresult.R;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
-import com.sunloto.drawing.lotterydrawresult.utils.Utils;
 
 import java.util.List;
 

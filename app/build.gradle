@@ -31,4 +31,5 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'com.balysv:material-ripple:1.0.0'
     compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
 }

@@ -286,4 +286,8 @@ public class DragLayout extends FrameLayout {
         }
     }
 
+    public boolean isOpen () {
+        return status == Status.Open;
+    }
+
 }

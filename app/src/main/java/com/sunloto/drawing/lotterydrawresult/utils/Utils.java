@@ -2,10 +2,26 @@ package com.sunloto.drawing.lotterydrawresult.utils;
 
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by youzh on 2015/2/3.
  */
 public class Utils {
+
+    /**
+     * 将以毫秒为单位的时间转换成字符串格式的时间
+     *
+     * @param time
+     *            时间，以毫秒为单位
+     */
+    public static String getTimeStrFromMillis(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String result = sdf.format(new Date(time));
+        return result;
+    }
 
     /**
      * dp转px
