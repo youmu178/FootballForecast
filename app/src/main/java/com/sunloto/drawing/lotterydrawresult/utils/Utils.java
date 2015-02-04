@@ -18,7 +18,7 @@ public class Utils {
      *            时间，以毫秒为单位
      */
     public static String getTimeStrFromMillis(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
         String result = sdf.format(new Date(time));
         return result;
     }

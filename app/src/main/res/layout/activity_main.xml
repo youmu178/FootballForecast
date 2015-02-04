@@ -61,13 +61,17 @@
         <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
         <!--android:textColor="@android:color/white" />-->
         <!--</RelativeLayout>-->
-
+        <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tool_bar"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            />
 
         <LinearLayout
             android:id="@+id/progressLayout"

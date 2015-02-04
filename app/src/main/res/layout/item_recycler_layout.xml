@@ -2,15 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        >
+    <TextView
+        android:id="@+id/item_game_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11111"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/item_game_league"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:text="11111"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/item_game_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:text="dfdfd"
         android:textColor="#2A6496"
@@ -23,6 +47,7 @@
         android:layout_height="25dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
         <TextView

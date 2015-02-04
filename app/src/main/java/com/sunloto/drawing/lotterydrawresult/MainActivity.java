@@ -57,7 +57,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private MainRecyclerAdapter mainRecyclerAdapter;
     private List<HotGame> mGameLists = new ArrayList<HotGame>();
     private MaterialMenuIconToolbar materialMenu;
-    private int actionBarMenuState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +142,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_explain) {
+
         }
 
         return super.onOptionsItemSelected(item);

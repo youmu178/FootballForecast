@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sunloto.drawing.lotterydrawresult.R;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
+import com.sunloto.drawing.lotterydrawresult.utils.Utils;
 
 import java.util.List;
 
@@ -39,33 +40,34 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, int i) {
         HotGame game = gameList.get(i);
+        Long gameDate = game.getDate();// 比赛时间
+        String leagueName = game.getLeagueName();//赛事级别
         String homeTeamName = game.getHomeTeamName();// 主队名
         String AwayTeamName = game.getAwayTeamName();// 客队名
         int homeGoal = game.getHomeGoal();// 主队预测分
         int awayGoal = game.getAwayGoal();// 客队预测分
         int homeWin = game.getHomeWin();// 胜概率
-        int draw = game.getDraw();//平
+        int draw = game.getDraw();//平概率
         int awayWin = game.getAwayWin();// 负概率
+
+        recyclerViewHolder.mItemGameDate.setText("比赛时间："+Utils.getTimeStrFromMillis(gameDate));
+        recyclerViewHolder.mItemGameLeague.setText(leagueName);
         recyclerViewHolder.mItemGameName.setText(homeTeamName + " " + homeGoal+"" + ":" + awayGoal+"" + " " + AwayTeamName);
 
         ViewGroup.LayoutParams layoutParams = recyclerViewHolder.mItemPercentLayout.getLayoutParams();
-//        Log.e("youzh", "总宽：" + layoutParams.width);
 
         ViewGroup.LayoutParams leftLayoutParams = recyclerViewHolder.mItemRercentLeft.getLayoutParams();
         leftLayoutParams.width = (int)(layoutParams.width * (homeWin/100.0));
-//        Log.d("youzh", "左宽：" + leftLayoutParams.width);
         recyclerViewHolder.mItemRercentLeft.setLayoutParams(leftLayoutParams);
         recyclerViewHolder.mItemRercentLeft.setText(homeWin + "%");
 
         ViewGroup.LayoutParams middleLayoutParams = recyclerViewHolder.mItemRercentMiddle.getLayoutParams();
         middleLayoutParams.width = (int)(layoutParams.width * (draw/100.0));
-//        Log.d("youzh", "中宽：" + middleLayoutParams.width);
         recyclerViewHolder.mItemRercentMiddle.setLayoutParams(middleLayoutParams);
         recyclerViewHolder.mItemRercentMiddle.setText(draw + "%");
 
         ViewGroup.LayoutParams rightLayoutParams = recyclerViewHolder.mItemRercentRight.getLayoutParams();
         rightLayoutParams.width = (int)(layoutParams.width * (awayWin/100.0));
-//        Log.d("youzh", "右宽：" + rightLayoutParams.width);
         recyclerViewHolder.mItemRercentRight.setLayoutParams(rightLayoutParams);
         recyclerViewHolder.mItemRercentRight.setText(awayWin + "%");
     }
@@ -76,6 +78,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.item_game_date)
+        TextView mItemGameDate;
+        @InjectView(R.id.item_game_league)
+        TextView mItemGameLeague;
         @InjectView(R.id.item_game_name)
         TextView mItemGameName;
         @InjectView(R.id.percent_layout)
