@@ -32,4 +32,7 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'com.balysv:material-ripple:1.0.0'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
+    compile 'me.drakeet.materialdialog:library:1.2.2'
+    compile 'com.rengwuxian.materialedittext:library:1.8.2'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
 }

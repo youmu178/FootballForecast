@@ -5,4 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="string_web">310data.wozhongla.com</string>
+    <string name="string_use">本站在未登录的情况下，只能获取基本预测数据，通过官网注册，登录即可获取列表详情数据，已增加您对球赛的判断...</string>
+
+
 </resources>

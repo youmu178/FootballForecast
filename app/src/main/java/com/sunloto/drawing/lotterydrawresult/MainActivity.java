@@ -1,6 +1,8 @@
 package com.sunloto.drawing.lotterydrawresult;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -32,6 +34,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
+import me.drakeet.materialdialog.MaterialDialog;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -40,7 +44,7 @@ import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     @InjectView(R.id.dragLayout)
     DragLayout mDragLayout;
@@ -54,9 +58,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     ProgressWheel mProgressLayout;
     @InjectView(R.id.empty_layout)
     TextView mLayoutEmpty;
+    @InjectView(R.id.main_login)
+    TextView mTVLogin;
     private MainRecyclerAdapter mainRecyclerAdapter;
     private List<HotGame> mGameLists = new ArrayList<HotGame>();
     private MaterialMenuIconToolbar materialMenu;
+
+    private int clickPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,13 +148,40 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_share) {
             return true;
         } else if (id == R.id.action_explain) {
-
+            showDialog("使用说明", getResources().getString(R.string.string_use), "取消", "", id);
+            return true;
+        } else if (id == R.id.action_website) {
+            showDialog("官网", getResources().getString(R.string.string_web), "访问", "取消", id);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialog(String title, String message, String positive, String negative, final int id) {
+        final MaterialDialog materialDialog = new MaterialDialog(this);
+        materialDialog.setTitle(title);
+        materialDialog.setMessage(message);
+        materialDialog.setPositiveButton(positive, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id == R.id.action_website) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.string_web))));
+                } else {
+                    materialDialog.dismiss();
+                }
+            }
+        });
+        materialDialog.setNegativeButton(negative, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                materialDialog.dismiss();
+            }
+        });
+        materialDialog.show();
     }
 
     @Override
@@ -156,11 +191,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         getData(position);
     }
 
-    private void getData(int position) {
+    private void getData(final int position) {
         mProgressLayout.setVisibility(View.VISIBLE);
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.BASE_URL).build();
         WoZhongLaApi woZhongLaApi = restAdapter.create(WoZhongLaApi.class);
         if (position < 63) {
+            String[] gameKind = getResources().getStringArray(R.array.game_kind);
+            mToolBar.setTitle(gameKind[position]);
             woZhongLaApi.getLottertGameList((position + 1) + "", new Callback<List<HotGame>>() {
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
@@ -171,6 +208,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
                             mGameLists.add(hotGame);
                         }
+                        clickPosition = position;
                         mProgressLayout.setVisibility(View.GONE);
                         mainRecyclerAdapter.notifyDataSetChanged();
                     }
@@ -178,11 +216,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
                 @Override
                 public void failure(RetrofitError error) {
+                    if (clickPosition != position) {
+                        mGameLists.clear();
+                        mainRecyclerAdapter.notifyDataSetChanged();
+                    }
                     mProgressLayout.setVisibility(View.GONE);
                     mLayoutEmpty.setVisibility(View.VISIBLE);
                 }
+
+
             });
         } else {
+            mToolBar.setTitle("热门预测");
             woZhongLaApi.getLotteryHotList(new Callback<List<HotGame>>() {
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
@@ -191,6 +236,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                         for (HotGame hotGame : hotGames) {
                             mGameLists.add(hotGame);
                         }
+                        clickPosition = position;
                         mProgressLayout.setVisibility(View.GONE);
                         mainRecyclerAdapter.notifyDataSetChanged();
                     }
@@ -198,10 +244,24 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
                 @Override
                 public void failure(RetrofitError error) {
+                    if (clickPosition != position) {
+                        mGameLists.clear();
+                        mainRecyclerAdapter.notifyDataSetChanged();
+                    }
                     mProgressLayout.setVisibility(View.GONE);
                     mLayoutEmpty.setVisibility(View.VISIBLE);
                 }
             });
+        }
+    }
+
+    @OnClick({R.id.main_login})
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.main_login:
+                startActivity(new Intent(this, LogingActivity.class));
+                break;
         }
     }
 }
