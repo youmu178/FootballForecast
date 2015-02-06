@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/login_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_football_title"
+        android:elevation="10dp"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        xmlns:et="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/username_et"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="用户名"
+        et:primaryColor="#8CBA00"
+        et:floatingLabel="normal"
+        et:singleLineEllipsis="true"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        xmlns:et="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/password_et"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="密码"
+        et:primaryColor="#8CBA00"
+        et:floatingLabel="normal"
+        et:singleLineEllipsis="true"
+        />
+        <!--et:baseColor="#5C656B"-->
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="16dp"
+        android:text="登 录"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorNormal="@color/green_complete"
+        custom:pb_colorPressed="@color/green_complete"
+        custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_textComplete="成功"
+        custom:pb_textProgress="Loading"
+        custom:pb_textError="用户名或密码错误"
+        custom:pb_colorError="@color/red_error" />
+</LinearLayout>
