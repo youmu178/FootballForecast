@@ -13,4 +13,10 @@ Football Game Forecast
 
 [material-ripple](https://github.com/balysv/material-ripple) 
 
-[retrofit](http://square.github.io/retrofit/)
+[retrofit](http://square.github.io/retrofit/) 
+
+##Effect 
+
+![1](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast1.png) 
+
+![2](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast2.png)
