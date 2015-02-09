@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sunloto.drawing.lotterydrawresult" >
+    package="com.sunloto.drawing.lotterydrawresult">
 
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".AppContext"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="54d85254fd98c579e1000449"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,7 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogingActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".LogingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ForecastDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

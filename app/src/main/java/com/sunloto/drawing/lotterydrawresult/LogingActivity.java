@@ -2,32 +2,32 @@ package com.sunloto.drawing.lotterydrawresult;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconToolbar;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.sunloto.drawing.lotterydrawresult.bean.User;
 import com.sunloto.drawing.lotterydrawresult.bean.UserInfo;
-import com.sunloto.drawing.lotterydrawresult.common.WebDefine;
-import com.sunloto.drawing.lotterydrawresult.net.WoZhongLaApi;
+import com.sunloto.drawing.lotterydrawresult.net.BackCookie;
+import com.sunloto.drawing.lotterydrawresult.net.Net;
 import com.sunloto.drawing.lotterydrawresult.utils.ProgressGenerator;
+
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
-import retrofit.Callback;
-import retrofit.RestAdapter;
+import de.greenrobot.event.EventBus;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
  * Created by youzh on 2015/2/5.
  */
-public class LogingActivity extends ActionBarActivity implements ProgressGenerator.OnCompleteListener{
+public class LogingActivity extends BaseActionBarActivity implements ProgressGenerator.OnCompleteListener {
 
     @InjectView(R.id.login_toolBar)
     Toolbar mLoginToolBar;
@@ -70,27 +70,40 @@ public class LogingActivity extends ActionBarActivity implements ProgressGenerat
         mBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String username = mUsernameEt.getText().toString();
+                String password = mPasswordEt.getText().toString();
+                if (TextUtils.isEmpty(username)) {
+                    Toast.makeText(LogingActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(LogingActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 progressGenerator.start(mBtnSignIn);
                 mBtnSignIn.setEnabled(false);
 
-                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.URL).setLogLevel(RestAdapter.LogLevel.FULL)
-                        .setLog(new RestAdapter.Log() {
-                            @Override
-                            public void log(String message) {
-                                Log.d("youzh", message);
-                            }
-                        }).build();
-                WoZhongLaApi woZhongLaApi = restAdapter.create(WoZhongLaApi.class);
-                woZhongLaApi.login("1018710942@qq.com", "zhao2550", new Callback<UserInfo>() {
+                Net.getApi().login(username, password, new BackCookie<UserInfo>() {
                     @Override
                     public void success(UserInfo userInfo, Response response) {
-                        Log.e("youzh", userInfo.getUser().getUsername());
+                        super.success(userInfo, response);
+
                         progressGenerator.stop();
                         mBtnSignIn.setEnabled(true);
+                        if (userInfo.isState()) {
+                            User user = userInfo.getUser();
+                            EventBus.getDefault().post(user);
+                            finish();
+                        } else {
+                            Toast.makeText(LogingActivity.this, userInfo.getmMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
+                        super.failure(error);
+                        Toast.makeText(LogingActivity.this, "网络连接异常，请等一会喔.", Toast.LENGTH_SHORT).show();
                         progressGenerator.stop();
                         mBtnSignIn.setEnabled(true);
                     }

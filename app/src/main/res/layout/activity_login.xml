@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="用户名"
+        et:baseColor="#000000"
         et:primaryColor="#8CBA00"
         et:floatingLabel="normal"
         et:singleLineEllipsis="true"
@@ -37,11 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="密码"
+        et:baseColor="#000000"
         et:primaryColor="#8CBA00"
         et:floatingLabel="normal"
         et:singleLineEllipsis="true"
         />
-        <!--et:baseColor="#5C656B"-->
 
     <com.dd.processbutton.iml.ActionProcessButton
         xmlns:custom="http://schemas.android.com/apk/res-auto"

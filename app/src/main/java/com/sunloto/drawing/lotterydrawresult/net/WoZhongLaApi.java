@@ -1,5 +1,6 @@
 package com.sunloto.drawing.lotterydrawresult.net;
 
+import com.sunloto.drawing.lotterydrawresult.bean.GameDetail;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
 import com.sunloto.drawing.lotterydrawresult.bean.UserInfo;
 
@@ -15,12 +16,15 @@ import retrofit.http.Query;
  */
 public interface WoZhongLaApi {
 
-    @GET("/hotgames")
+    @GET("/inf/data/hotgames")
     void getLotteryHotList(Callback<List<HotGame>> callback);
 
-    @GET("/games/{game}")
+    @GET("/inf/data/games/{game}")
     void getLottertGameList(@Path("game") String gameID, Callback<List<HotGame>> callback);
 
     @GET("/inf/userinfo/login")
     void login(@Query("loginname")String username, @Query("password") String password, Callback<UserInfo> callBack);
+
+    @GET("/inf/data/game/{game}")
+    void getForcastDetail(@Path("game") String gameID, Callback<GameDetail> callback);
 }

@@ -32,9 +32,9 @@ public class OddsTable implements Parcelable{
     @SerializedName(FIELD_SECOND_HALF)
     private List<SecondHalf> mSecondHalves;
     @SerializedName(FIELD_OVER_2_5)
-    private int mOver25;
+    private double mOver25;
     @SerializedName(FIELD_UNDER_2_5)
-    private int mUnder25;
+    private double mUnder25;
     @SerializedName(FIELD_BOTH_TEAM_TO_SCORE)
     private List<BothTeamToScore> mBothTeamToScores;
     @SerializedName(FIELD_MONEYLINE)
@@ -87,19 +87,19 @@ public class OddsTable implements Parcelable{
         return mSecondHalves;
     }
 
-    public void setOver25(int over25) {
+    public void setOver25(double over25) {
         mOver25 = over25;
     }
 
-    public int getOver25() {
+    public double getOver25() {
         return mOver25;
     }
 
-    public void setUnder25(int under25) {
+    public void setUnder25(double under25) {
         mUnder25 = under25;
     }
 
-    public int getUnder25() {
+    public double getUnder25() {
         return mUnder25;
     }
 
@@ -168,8 +168,8 @@ public class OddsTable implements Parcelable{
         dest.writeInt(mBookmakerId);
         dest.writeTypedList(mHandicapSpreads);
         dest.writeTypedList(mSecondHalves);
-        dest.writeInt(mOver25);
-        dest.writeInt(mUnder25);
+        dest.writeDouble(mOver25);
+        dest.writeDouble(mUnder25);
         dest.writeTypedList(mBothTeamToScores);
         dest.writeTypedList(mMoneylines);
         dest.writeTypedList(mFirstHalves);

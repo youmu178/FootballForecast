@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sunloto.drawing.lotterydrawresult.R;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
+import com.sunloto.drawing.lotterydrawresult.utils.LayoutCommon;
 import com.sunloto.drawing.lotterydrawresult.utils.Utils;
 
 import java.util.List;
@@ -20,9 +21,10 @@ import butterknife.InjectView;
 /**
  * Created by youzh on 2015/2/3.
  */
-public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.RecyclerViewHolder> {
+public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.RecyclerViewHolder> implements View.OnClickListener {
     private List<HotGame> gameList;
     private Context ctx;
+    private RecyclerOnItemClickListener mOnItemClickListener = null;
 
     public MainRecyclerAdapter(Context ctx, List<HotGame> gameList) {
         this.ctx = ctx;
@@ -34,6 +36,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         View layout = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recycler_layout, viewGroup, false);
 //        View layout = View.inflate(viewGroup.getContext(), R.layout.item_recycler_layout, null);
         RecyclerViewHolder viewHolder = new RecyclerViewHolder(layout);
+        layout.setOnClickListener(this);
         return viewHolder;
     }
 
@@ -50,34 +53,35 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         int draw = game.getDraw();//平概率
         int awayWin = game.getAwayWin();// 负概率
 
-        recyclerViewHolder.mItemGameDate.setText("比赛时间："+Utils.getTimeStrFromMillis(gameDate));
+        recyclerViewHolder.mItemGameDate.setText("比赛时间：" + Utils.getTimeStrFromMillis(gameDate));
         recyclerViewHolder.mItemGameLeague.setText(leagueName);
-        recyclerViewHolder.mItemGameName.setText(homeTeamName + " " + homeGoal+"" + ":" + awayGoal+"" + " " + AwayTeamName);
+        recyclerViewHolder.mItemGameName.setText(homeTeamName + " " + homeGoal + "" + ":" + awayGoal + "" + " " + AwayTeamName);
 
-        ViewGroup.LayoutParams layoutParams = recyclerViewHolder.mItemPercentLayout.getLayoutParams();
+        LayoutCommon.showRercentLayout(recyclerViewHolder.mItemPercentLayout, recyclerViewHolder.mItemRercentLeft, recyclerViewHolder.mItemRercentMiddle, recyclerViewHolder.mItemRercentRight, draw, awayWin, homeWin);
 
-        ViewGroup.LayoutParams leftLayoutParams = recyclerViewHolder.mItemRercentLeft.getLayoutParams();
-        leftLayoutParams.width = (int)(layoutParams.width * (homeWin/100.0));
-        recyclerViewHolder.mItemRercentLeft.setLayoutParams(leftLayoutParams);
-        recyclerViewHolder.mItemRercentLeft.setText(homeWin + "%");
-
-        ViewGroup.LayoutParams middleLayoutParams = recyclerViewHolder.mItemRercentMiddle.getLayoutParams();
-        middleLayoutParams.width = (int)(layoutParams.width * (draw/100.0));
-        recyclerViewHolder.mItemRercentMiddle.setLayoutParams(middleLayoutParams);
-        recyclerViewHolder.mItemRercentMiddle.setText(draw + "%");
-
-        ViewGroup.LayoutParams rightLayoutParams = recyclerViewHolder.mItemRercentRight.getLayoutParams();
-        rightLayoutParams.width = (int)(layoutParams.width * (awayWin/100.0));
-        recyclerViewHolder.mItemRercentRight.setLayoutParams(rightLayoutParams);
-        recyclerViewHolder.mItemRercentRight.setText(awayWin + "%");
+        recyclerViewHolder.mItemLayout.setTag(game);
     }
+
 
     @Override
     public int getItemCount() {
         return gameList.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.OnItemClickListener((HotGame) v.getTag());
+        }
+    }
+
+    public void setOnItemClickListener(RecyclerOnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.itemLayout)
+        LinearLayout mItemLayout;
         @InjectView(R.id.item_game_date)
         TextView mItemGameDate;
         @InjectView(R.id.item_game_league)
@@ -96,7 +100,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this,itemView);
+            ButterKnife.inject(this, itemView);
         }
+    }
+
+    public interface RecyclerOnItemClickListener {
+        void OnItemClickListener(HotGame game);
     }
 }

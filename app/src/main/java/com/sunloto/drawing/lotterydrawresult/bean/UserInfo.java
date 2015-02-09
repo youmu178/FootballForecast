@@ -9,13 +9,18 @@ public class UserInfo implements Parcelable{
 
     private static final String FIELD_STATE = "state";
     private static final String FIELD_USER = "user";
+    private static final String FIELD_MESSAGE = "message";
+    private static final String FIELD_ERROR = "error";
 
 
     @SerializedName(FIELD_STATE)
     private boolean mState;
     @SerializedName(FIELD_USER)
     private User mUser;
-
+    @SerializedName(FIELD_MESSAGE)
+    private String mMessage;
+    @SerializedName(FIELD_ERROR)
+    private String mError;
 
     public UserInfo(){
 
@@ -37,8 +42,26 @@ public class UserInfo implements Parcelable{
         return mUser;
     }
 
+    public String getmMessage() {
+        return mMessage;
+    }
+
+    public void setmMessage(String mMessage) {
+        this.mMessage = mMessage;
+    }
+
+    public String getmError() {
+        return mError;
+    }
+
+    public void setmError(String mError) {
+        this.mError = mError;
+    }
+
     public UserInfo(Parcel in) {
         mState = in.readInt() == 1 ? true: false;
+        mMessage = in.readString();
+        mError = in.readString();
         mUser = in.readParcelable(User.class.getClassLoader());
     }
 
@@ -61,6 +84,8 @@ public class UserInfo implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mState ? 1 : 0);
         dest.writeParcelable(mUser, flags);
+        dest.writeString(mMessage);
+        dest.writeString(mError);
     }
 
 

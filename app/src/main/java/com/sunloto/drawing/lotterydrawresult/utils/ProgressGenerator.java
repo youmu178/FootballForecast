@@ -2,15 +2,10 @@ package com.sunloto.drawing.lotterydrawresult.utils;
 
 
 import com.dd.processbutton.ProcessButton;
-import com.sunloto.drawing.lotterydrawresult.common.WebDefine;
-import com.sunloto.drawing.lotterydrawresult.net.WoZhongLaApi;
 
 import android.os.Handler;
-import android.util.Log;
 
 import java.util.Random;
-
-import retrofit.RestAdapter;
 
 /**
  * Created by youzh on 2015/2/5.

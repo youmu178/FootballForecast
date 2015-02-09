@@ -1,21 +1,19 @@
 package com.sunloto.drawing.lotterydrawresult;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -24,10 +22,11 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import com.sunloto.drawing.lotterydrawresult.adapter.MainRecyclerAdapter;
 import com.sunloto.drawing.lotterydrawresult.adapter.StickyListAdapter;
 import com.sunloto.drawing.lotterydrawresult.bean.HotGame;
-import com.sunloto.drawing.lotterydrawresult.bean.Result;
-import com.sunloto.drawing.lotterydrawresult.common.WebDefine;
-import com.sunloto.drawing.lotterydrawresult.net.WoZhongLaApi;
+import com.sunloto.drawing.lotterydrawresult.bean.User;
+import com.sunloto.drawing.lotterydrawresult.net.BackCookie;
+import com.sunloto.drawing.lotterydrawresult.net.Net;
 import com.sunloto.drawing.lotterydrawresult.widget.DragLayout;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,16 +34,14 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import me.drakeet.materialdialog.MaterialDialog;
-import retrofit.Callback;
-import retrofit.RestAdapter;
+import de.greenrobot.event.EventBus;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class MainActivity extends BaseActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener, MainRecyclerAdapter.RecyclerOnItemClickListener {
 
     @InjectView(R.id.dragLayout)
     DragLayout mDragLayout;
@@ -71,8 +68,28 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+        MobclickAgent.updateOnlineConfig(this);
+
         initViews();
         getData(64);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(User user) {
+        if (user != null) {
+            mTVLogin.setText(" Hi, " + user.getUsername());
+            SharedPreferences userConfig = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor edit = userConfig.edit();
+            edit.putString("username", user.getUsername());
+            edit.putString("password", user.getPassword());
+            edit.commit();
+        }
     }
 
     private void initViews() {
@@ -130,6 +147,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mRecyclerView.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(this, mGameLists);
         mRecyclerView.setAdapter(mainRecyclerAdapter);
+        mainRecyclerAdapter.setOnItemClickListener(this);
+
+        SharedPreferences userConfig = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = userConfig.getString("username", "");
+        if (!TextUtils.isEmpty(username)) {
+            mTVLogin.setText(" Hi, " + username);
+        }
     }
 
 
@@ -161,29 +185,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDialog(String title, String message, String positive, String negative, final int id) {
-        final MaterialDialog materialDialog = new MaterialDialog(this);
-        materialDialog.setTitle(title);
-        materialDialog.setMessage(message);
-        materialDialog.setPositiveButton(positive, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (id == R.id.action_website) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.string_web))));
-                } else {
-                    materialDialog.dismiss();
-                }
-            }
-        });
-        materialDialog.setNegativeButton(negative, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDialog.dismiss();
-            }
-        });
-        materialDialog.show();
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i("youzh", "位置： " + position);
@@ -193,57 +194,70 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private void getData(final int position) {
         mProgressLayout.setVisibility(View.VISIBLE);
-        RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.BASE_URL).build();
-        WoZhongLaApi woZhongLaApi = restAdapter.create(WoZhongLaApi.class);
         if (position < 63) {
             String[] gameKind = getResources().getStringArray(R.array.game_kind);
             mToolBar.setTitle(gameKind[position]);
-            woZhongLaApi.getLottertGameList((position + 1) + "", new Callback<List<HotGame>>() {
-                @Override
-                public void success(List<HotGame> hotGames, Response response) {
-                    if (hotGames != null && !hotGames.isEmpty()) {
-                        mGameLists.clear();
-                        for (HotGame hotGame : hotGames) {
-                            Long date = hotGame.getDate();
-
-                            mGameLists.add(hotGame);
+            Net.getApi().getLottertGameList((position + 1) + "", new BackCookie<List<HotGame>>() {
+                        @Override
+                        public void success(List<HotGame> hotGames, Response response) {
+                            super.success(hotGames, response);
+                            if (hotGames != null && !hotGames.isEmpty()) {
+                                mGameLists.clear();
+                                long nowDate = System.currentTimeMillis();
+                                for (HotGame hotGame : hotGames) {
+                                    Long date = hotGame.getDate();
+                                    if (date > nowDate) {
+                                        mGameLists.add(hotGame);
+                                    }
+                                }
+                                clickPosition = position;
+                                mProgressLayout.setVisibility(View.GONE);
+                                mLayoutEmpty.setVisibility(View.GONE);
+                                mainRecyclerAdapter.notifyDataSetChanged();
+                            }
                         }
-                        clickPosition = position;
-                        mProgressLayout.setVisibility(View.GONE);
-                        mainRecyclerAdapter.notifyDataSetChanged();
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            super.failure(error);
+                            Log.i("youzh", "clickPosition: " + clickPosition + " position: " + position);
+                            if (clickPosition != position) {
+                                mGameLists.clear();
+                                mainRecyclerAdapter.notifyDataSetChanged();
+                            }
+                            mProgressLayout.setVisibility(View.GONE);
+                            mLayoutEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    if (clickPosition != position) {
-                        mGameLists.clear();
-                        mainRecyclerAdapter.notifyDataSetChanged();
-                    }
-                    mProgressLayout.setVisibility(View.GONE);
-                    mLayoutEmpty.setVisibility(View.VISIBLE);
-                }
-
-
-            });
+            );
         } else {
             mToolBar.setTitle("热门预测");
-            woZhongLaApi.getLotteryHotList(new Callback<List<HotGame>>() {
+            Net.getApi().getLotteryHotList(new BackCookie<List<HotGame>>() {
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
+                    super.success(hotGames, response);
+
                     if (hotGames != null && !hotGames.isEmpty()) {
                         mGameLists.clear();
+                        long nowDate = System.currentTimeMillis();
                         for (HotGame hotGame : hotGames) {
-                            mGameLists.add(hotGame);
+                            Long date = hotGame.getDate();
+                            if (date > nowDate) {
+                                mGameLists.add(hotGame);
+                            }
                         }
                         clickPosition = position;
                         mProgressLayout.setVisibility(View.GONE);
+                        mLayoutEmpty.setVisibility(View.GONE);
                         mainRecyclerAdapter.notifyDataSetChanged();
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    super.failure(error);
+                    Log.e("youzh", "clickPosition: " + clickPosition + " position: " + position);
                     if (clickPosition != position) {
                         mGameLists.clear();
                         mainRecyclerAdapter.notifyDataSetChanged();
@@ -255,13 +269,22 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
     }
 
-    @OnClick({R.id.main_login})
+    @OnClick({R.id.loging_layout})
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.main_login:
+        switch (v.getId()) {
+            case R.id.loging_layout:
                 startActivity(new Intent(this, LogingActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void OnItemClickListener(HotGame game) {
+       if (game != null) {
+           Intent intent = new Intent(mAct, ForecastDetailActivity.class);
+           intent.putExtra("gameID", game.getId()+"");
+           startActivity(intent);
+       }
     }
 }

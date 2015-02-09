@@ -7,17 +7,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/loging_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_mine_photo"
+            />
 
         <TextView
             android:id="@+id/main_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/icon_mine_photo"
             android:text="未登录"
-            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:textColor="@android:color/white"/>
+        </LinearLayout>
 
         <se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView
             android:id="@+id/expandListView"

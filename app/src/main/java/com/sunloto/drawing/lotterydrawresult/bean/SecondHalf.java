@@ -12,7 +12,7 @@ public class SecondHalf implements Parcelable{
 
 
     @SerializedName(FIELD_ODDS)
-    private int mOdd;
+    private double mOdd;
     @SerializedName(FIELD_TITLE)
     private String mTitle;
 
@@ -21,11 +21,11 @@ public class SecondHalf implements Parcelable{
 
     }
 
-    public void setOdd(int odd) {
+    public void setOdd(double odd) {
         mOdd = odd;
     }
 
-    public int getOdd() {
+    public double getOdd() {
         return mOdd;
     }
 
@@ -38,7 +38,7 @@ public class SecondHalf implements Parcelable{
     }
 
     public SecondHalf(Parcel in) {
-        mOdd = in.readInt();
+        mOdd = in.readDouble();
         mTitle = in.readString();
     }
 
@@ -59,7 +59,7 @@ public class SecondHalf implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mOdd);
+        dest.writeDouble(mOdd);
         dest.writeString(mTitle);
     }
 

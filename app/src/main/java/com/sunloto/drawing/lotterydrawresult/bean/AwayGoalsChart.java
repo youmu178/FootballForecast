@@ -14,7 +14,7 @@ public class AwayGoalsChart implements Parcelable{
     @SerializedName(FIELD_PCTG)
     private int mPctg;
     @SerializedName(FIELD_GOALS)
-    private int mGoal;
+    private String mGoal;
 
 
     public AwayGoalsChart(){
@@ -29,17 +29,17 @@ public class AwayGoalsChart implements Parcelable{
         return mPctg;
     }
 
-    public void setGoal(int goal) {
+    public void setGoal(String goal) {
         mGoal = goal;
     }
 
-    public int getGoal() {
+    public String getGoal() {
         return mGoal;
     }
 
     public AwayGoalsChart(Parcel in) {
         mPctg = in.readInt();
-        mGoal = in.readInt();
+        mGoal = in.readString();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class AwayGoalsChart implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mPctg);
-        dest.writeInt(mGoal);
+        dest.writeString(mGoal);
     }
 
 

@@ -67,7 +67,16 @@ public class GameDetail implements Parcelable{
     private static final String FIELD_WIN_TO_NIL = "win_to_nil";
     private static final String FIELD_AWAY_AVG = "away_avg";
 
+    private static final String FIELD_STATE = "state";
+    private static final String FIELD_MESSAGE = "message";
+    private static final String FIELD_ERROR = "error";
 
+    @SerializedName(FIELD_STATE)
+    private boolean mState;
+    @SerializedName(FIELD_MESSAGE)
+    private String mMessage;
+    @SerializedName(FIELD_ERROR)
+    private String mError;
     @SerializedName(FIELD_OU_ODDS)
     private List<OuOdd> mOuOdds;
     @SerializedName(FIELD_LOCATION)
@@ -139,7 +148,7 @@ public class GameDetail implements Parcelable{
     @SerializedName(FIELD_LINE_MOVES)
     private List<LineMove> mLineMoves;
     @SerializedName(FIELD_AWAY_INDEX)
-    private int mAwayIndex;
+    private double mAwayIndex;
     @SerializedName(FIELD_HOME_RANKING)
     private List<HomeRanking> mHomeRankings;
     @SerializedName(FIELD_TOTAL_GOALS_PREDICTION)
@@ -186,6 +195,28 @@ public class GameDetail implements Parcelable{
 
     public GameDetail(){
 
+    }
+    public void setState(boolean state) {
+        mState = state;
+    }
+
+    public boolean isState() {
+        return mState;
+    }
+    public String getmMessage() {
+        return mMessage;
+    }
+
+    public void setmMessage(String mMessage) {
+        this.mMessage = mMessage;
+    }
+
+    public String getmError() {
+        return mError;
+    }
+
+    public void setmError(String mError) {
+        this.mError = mError;
     }
 
     public void setOuOdds(List<OuOdd> ouOdds) {
@@ -468,11 +499,11 @@ public class GameDetail implements Parcelable{
         return mLineMoves;
     }
 
-    public void setAwayIndex(int awayIndex) {
+    public void setAwayIndex(double awayIndex) {
         mAwayIndex = awayIndex;
     }
 
-    public int getAwayIndex() {
+    public double getAwayIndex() {
         return mAwayIndex;
     }
 
@@ -658,6 +689,9 @@ public class GameDetail implements Parcelable{
     }
 
     public GameDetail(Parcel in) {
+        mState = in.readInt() == 1 ? true: false;
+        mMessage = in.readString();
+        mError = in.readString();
         mOuOdds = new ArrayList<OuOdd>();
         in.readTypedList(mOuOdds, OuOdd.CREATOR);
         mLocation = in.readString();
@@ -755,6 +789,9 @@ public class GameDetail implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mState ? 1 : 0);
+        dest.writeString(mMessage);
+        dest.writeString(mError);
         dest.writeTypedList(mOuOdds);
         dest.writeString(mLocation);
         dest.writeList(mAwayUnifiedComments);
@@ -790,7 +827,7 @@ public class GameDetail implements Parcelable{
         dest.writeTypedList(mAwayRankings);
         dest.writeInt(mHomeWin);
         dest.writeTypedList(mLineMoves);
-        dest.writeInt(mAwayIndex);
+        dest.writeDouble(mAwayIndex);
         dest.writeTypedList(mHomeRankings);
         dest.writeTypedList(mTotalGoalsPredictions);
         dest.writeInt(mAwayScoredAtVenue);

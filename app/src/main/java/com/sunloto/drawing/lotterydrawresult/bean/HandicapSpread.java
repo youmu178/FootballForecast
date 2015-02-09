@@ -17,7 +17,7 @@ public class HandicapSpread implements Parcelable{
     @SerializedName(FIELD_TEAM)
     private String mTeam;
     @SerializedName(FIELD_ODDS)
-    private int mOdd;
+    private double mOdd;
 
 
     public HandicapSpread(){
@@ -40,18 +40,18 @@ public class HandicapSpread implements Parcelable{
         return mTeam;
     }
 
-    public void setOdd(int odd) {
+    public void setOdd(double odd) {
         mOdd = odd;
     }
 
-    public int getOdd() {
+    public double getOdd() {
         return mOdd;
     }
 
     public HandicapSpread(Parcel in) {
         mValue = in.readString();
         mTeam = in.readString();
-        mOdd = in.readInt();
+        mOdd = in.readDouble();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class HandicapSpread implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mValue);
         dest.writeString(mTeam);
-        dest.writeInt(mOdd);
+        dest.writeDouble(mOdd);
     }
 
 

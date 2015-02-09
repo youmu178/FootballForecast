@@ -27,7 +27,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-//    compile 'com.google.code.gson:gson:2.3.1'
+    //    compile 'com.google.code.gson:gson:2.3.1'
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'com.balysv:material-ripple:1.0.0'
@@ -35,4 +35,6 @@ dependencies {
     compile 'me.drakeet.materialdialog:library:1.2.2'
     compile 'com.rengwuxian.materialedittext:library:1.8.2'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.umeng.analytics:analytics:5.4.1'
 }
