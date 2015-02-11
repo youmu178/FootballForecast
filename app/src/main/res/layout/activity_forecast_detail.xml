@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,13 +94,204 @@
 
             <TextView
                 android:id="@+id/tv_game_date"
-                android:layout_below="@id/layout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
                 android:layout_alignParentBottom="true"
-                android:textColor="@android:color/white"/>
+                android:layout_below="@id/layout1"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:text="可能比分"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/score_goals_chart_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="让球预测"
+            android:textSize="18sp" />
+
+        <View style="@style/divider_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                 />
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/home_name"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_margin="10dp"/>
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/away_name"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+        <View style="@style/divider_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="让球"/>
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/home_handicap"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/away_handicap"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_weight="2" />
+        </LinearLayout>
+        <View style="@style/divider_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="让球概率"/>
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/home_probability"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_weight="2" />
+
+            <View style="@style/divider_vertical" />
+
+            <TextView
+                android:id="@+id/away_probability"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_weight="2" />
+        </LinearLayout>
+        <View style="@style/divider_horizontal" />
+
+        <TextView
+            android:id="@+id/home_current_form_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/home_current_form_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/away_current_form_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/away_current_form_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="数据统计"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/home_stat_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:background="@drawable/rect_gray_bg"/>
+
+        <TextView
+            android:id="@+id/away_stat_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rect_gray_bg"/>
     </LinearLayout>
 </ScrollView>

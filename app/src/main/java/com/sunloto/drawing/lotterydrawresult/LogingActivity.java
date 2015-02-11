@@ -11,6 +11,7 @@ import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconToolbar;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.sunloto.drawing.lotterydrawresult.bean.IsLogin;
 import com.sunloto.drawing.lotterydrawresult.bean.User;
 import com.sunloto.drawing.lotterydrawresult.bean.UserInfo;
 import com.sunloto.drawing.lotterydrawresult.net.BackCookie;
@@ -93,6 +94,7 @@ public class LogingActivity extends BaseActionBarActivity implements ProgressGen
                         if (userInfo.isState()) {
                             User user = userInfo.getUser();
                             EventBus.getDefault().post(user);
+                            EventBus.getDefault().post(new IsLogin(true));
                             finish();
                         } else {
                             Toast.makeText(LogingActivity.this, userInfo.getmMessage(), Toast.LENGTH_SHORT).show();

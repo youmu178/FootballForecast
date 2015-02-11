@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
+import com.sunloto.drawing.lotterydrawresult.bean.IsLogin;
 import com.umeng.analytics.MobclickAgent;
 
+import de.greenrobot.event.EventBus;
 import me.drakeet.materialdialog.MaterialDialog;
 
 /**
@@ -46,6 +48,8 @@ public class BaseActionBarActivity extends ActionBarActivity {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + web)));
                 } else if (id == 2){
                     startActivity(new Intent(mAct, LogingActivity.class));
+                } else if (id == 1) {
+                    EventBus.getDefault().post(new IsLogin(false));
                 }
                  materialDialog.dismiss();
             }
