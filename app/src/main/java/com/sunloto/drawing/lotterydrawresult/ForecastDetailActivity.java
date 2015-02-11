@@ -142,7 +142,7 @@ public class ForecastDetailActivity extends BaseActionBarActivity {
                 if (!TextUtils.isEmpty(gameDetail.getmMessage()) && ("401".equals(gameDetail.getmError()))) {
                     showDialog("提示", gameDetail.getmMessage(), "登录", "取消", 2);
                 } else if (!TextUtils.isEmpty(gameDetail.getmMessage()) && ("502".equals(gameDetail.getmError()))) {
-                    showDialog("服务提示", gameDetail.getmMessage(), "", "取消", 1);
+                    showDialog("服务提示", gameDetail.getmMessage(), "取消", "", 1);
                 } else {
                     if (gameDetail != null) {
                         mLayoutDetail.setVisibility(View.VISIBLE);
