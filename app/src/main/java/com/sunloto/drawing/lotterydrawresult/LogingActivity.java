@@ -56,6 +56,7 @@ public class LogingActivity extends BaseActionBarActivity implements ProgressGen
             @Override
             public void onClick(View v) {
                 materialMenu.animatePressedState(MaterialMenuDrawable.IconState.BURGER);
+                EventBus.getDefault().post(new IsLogin(false));
                 finish();
             }
         });
@@ -116,6 +117,11 @@ public class LogingActivity extends BaseActionBarActivity implements ProgressGen
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().post(new IsLogin(false));
+    }
 
     @Override
     public void onComplete() {

@@ -57,6 +57,9 @@ public class BaseActionBarActivity extends ActionBarActivity {
         materialDialog.setNegativeButton(negative, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id == 1) {
+                    EventBus.getDefault().post(new IsLogin(false));
+                }
                 materialDialog.dismiss();
             }
         });
