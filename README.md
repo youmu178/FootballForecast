@@ -19,4 +19,8 @@ Football Game Forecast
 
 ![1](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast1.png) 
 
-![2](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast2.png)
+![2](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast2.png) 
+
+![3](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast3.png) 
+
+![4](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast4.png)
