@@ -59,6 +59,8 @@ public class BaseActionBarActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (id == 1) {
                     EventBus.getDefault().post(new IsLogin(false));
+                } else if (id == 2) {
+                    EventBus.getDefault().post(new IsLogin(false));
                 }
                 materialDialog.dismiss();
             }
