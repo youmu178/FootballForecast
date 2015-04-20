@@ -17,10 +17,11 @@ Football Game Forecast
 
 ##Effect 
 
-![1](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast1.png) 
+<img src="https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast1.png" width=480 />
 
-![2](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast2.png) 
+<img src="https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast2.png" width=480 />
 
-![3](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast3.png) 
+<img src="https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast3.png" width=480 />
 
-![4](https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast4.png)
+<img src="https://raw.githubusercontent.com/youmu178/Pic/master/football_forecast4.png" width=480 />
+
