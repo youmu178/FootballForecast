@@ -1,4 +1,4 @@
-<com.sunloto.drawing.lotterydrawresult.widget.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.youmu.lotterydrawresult.widget.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dragLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,7 +52,7 @@
             android:textColor="@android:color/white" />
     </RelativeLayout>
 
-    <com.sunloto.drawing.lotterydrawresult.widget.MyRelativeLayout
+    <com.youmu.lotterydrawresult.widget.MyRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
@@ -119,5 +119,5 @@
                 android:visibility="gone" />
 
         </LinearLayout>
-    </com.sunloto.drawing.lotterydrawresult.widget.MyRelativeLayout>
-</com.sunloto.drawing.lotterydrawresult.widget.DragLayout>
+    </com.youmu.lotterydrawresult.widget.MyRelativeLayout>
+</com.youmu.lotterydrawresult.widget.DragLayout>

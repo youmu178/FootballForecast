@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sunloto.drawing.lotterydrawresult">
+    package="com.youmu.lotterydrawresult">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,7 +22,7 @@
             android:value="Channel ID" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.youmu.lotterydrawresult.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -32,10 +32,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogingActivity"
+            android:name="com.youmu.lotterydrawresult.LogingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ForecastDetailActivity"
+            android:name="com.youmu.lotterydrawresult.ForecastDetailActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

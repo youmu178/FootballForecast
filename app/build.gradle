@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.sunloto.drawing.lotterydrawresult"
+        applicationId "com.youmu.lotterydrawresult"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
