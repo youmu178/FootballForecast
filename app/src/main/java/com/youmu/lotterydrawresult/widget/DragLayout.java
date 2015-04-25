@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.nineoldandroids.view.ViewHelper;
-import com.sunloto.drawing.lotterydrawresult.R;
+import com.youmu.lotterydrawresult.R;
 
 public class DragLayout extends FrameLayout {
 

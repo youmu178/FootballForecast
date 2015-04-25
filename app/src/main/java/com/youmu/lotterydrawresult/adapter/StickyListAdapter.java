@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.sunloto.drawing.lotterydrawresult.R;
+import com.youmu.lotterydrawresult.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 
-import com.sunloto.drawing.lotterydrawresult.R;
+import com.youmu.lotterydrawresult.R;
 
 public class DialogProgress extends DialogFragment {
 

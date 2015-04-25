@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sunloto.drawing.lotterydrawresult.R;
+import com.youmu.lotterydrawresult.R;
 import com.youmu.lotterydrawresult.bean.HotGame;
 import com.youmu.lotterydrawresult.utils.LayoutCommon;
 import com.youmu.lotterydrawresult.utils.Utils;
