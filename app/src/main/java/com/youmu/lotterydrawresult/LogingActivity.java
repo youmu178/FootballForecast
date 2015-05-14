@@ -14,10 +14,10 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.youmu.lotterydrawresult.bean.IsLogin;
 import com.youmu.lotterydrawresult.bean.User;
 import com.youmu.lotterydrawresult.bean.UserInfo;
+import com.youmu.lotterydrawresult.common.WebDefine;
 import com.youmu.lotterydrawresult.net.BackCookie;
 import com.youmu.lotterydrawresult.net.Net;
 import com.youmu.lotterydrawresult.utils.ProgressGenerator;
-
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -85,7 +85,7 @@ public class LogingActivity extends BaseActionBarActivity implements ProgressGen
                 progressGenerator.start(mBtnSignIn);
                 mBtnSignIn.setEnabled(false);
 
-                Net.getApi().login(username, password, new BackCookie<UserInfo>() {
+                Net.getApi(WebDefine.URL).login(username, password, new BackCookie<UserInfo>() {
                     @Override
                     public void success(UserInfo userInfo, Response response) {
                         super.success(userInfo, response);

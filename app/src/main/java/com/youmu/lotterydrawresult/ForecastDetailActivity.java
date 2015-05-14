@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -121,12 +120,14 @@ public class ForecastDetailActivity extends BaseActionBarActivity {
     }
 
     private void getData(String gameID) {
-        RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.URL).setLogLevel(RestAdapter.LogLevel.FULL).setLog(new RestAdapter.Log() {
-            @Override
-            public void log(String message) {
-                Log.e("youzh", message);
-            }
-        }).setRequestInterceptor(new RequestInterceptor() {
+        RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(WebDefine.URL)
+//                .setLogLevel(RestAdapter.LogLevel.FULL).setLog(new RestAdapter.Log() {
+//            @Override
+//            public void log(String message) {
+//                Log.e("youzh", message);
+//            }
+//        })
+                .setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
                 SharedPreferences userConfig = PreferenceManager.getDefaultSharedPreferences(mAct);
@@ -156,7 +157,6 @@ public class ForecastDetailActivity extends BaseActionBarActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("youzh", "错误信息：" + error.getMessage());
                 Toast.makeText(mAct, "网络连接异常，请等一会再试.", Toast.LENGTH_SHORT).show();
                 dialogProgress.dismiss();
             }

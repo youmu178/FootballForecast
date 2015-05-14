@@ -17,13 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    lintOptions {
+//        abortOnError false
+//    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:recyclerview-v7:21.0.3'
-//    compile 'com.android.support:cardview-v7:21.0.3'
+    //    compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
@@ -36,5 +39,7 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:1.8.2'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
     compile 'de.greenrobot:eventbus:2.4.0'
-    compile 'com.umeng.analytics:analytics:5.4.1'
+    compile 'com.umeng.analytics:analytics:5.5.2'
+    compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 }

@@ -27,4 +27,5 @@ public interface WoZhongLaApi {
 
     @GET("/inf/data/game/{game}")
     void getForcastDetail(@Path("game") String gameID, Callback<GameDetail> callback);
+
 }

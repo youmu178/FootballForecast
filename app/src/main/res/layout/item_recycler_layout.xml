@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:rippleAlpha="0.2"
+    app:rippleColor="#007A33"
+    app:rippleHover="true"
+    app:rippleOverlay="false"
+
+    app:rippleDelayClick="true"
+    >
+<LinearLayout
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -79,3 +90,4 @@
     <View style="@style/divider_horizontal" />
 
 </LinearLayout>
+</com.balysv.materialripple.MaterialRippleLayout>

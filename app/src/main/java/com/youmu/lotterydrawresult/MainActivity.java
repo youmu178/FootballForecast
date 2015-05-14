@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +18,16 @@ import android.widget.TextView;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconToolbar;
 import com.pnikosis.materialishprogress.ProgressWheel;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 import com.youmu.lotterydrawresult.adapter.MainRecyclerAdapter;
 import com.youmu.lotterydrawresult.adapter.StickyListAdapter;
 import com.youmu.lotterydrawresult.bean.HotGame;
 import com.youmu.lotterydrawresult.bean.User;
+import com.youmu.lotterydrawresult.common.WebDefine;
 import com.youmu.lotterydrawresult.net.BackCookie;
 import com.youmu.lotterydrawresult.net.Net;
 import com.youmu.lotterydrawresult.widget.DragLayout;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-
 
 public class MainActivity extends BaseActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener, MainRecyclerAdapter.RecyclerOnItemClickListener {
 
@@ -69,10 +69,12 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         MobclickAgent.updateOnlineConfig(this);
+        UmengUpdateAgent.update(this);
 
         initViews();
         getData(64);
         EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -172,9 +174,10 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_share) {
-            return true;
-        } else if (id == R.id.action_explain) {
+//        if (id == R.id.action_share) {
+//            return true;
+//        } else
+        if (id == R.id.action_explain) {
             showDialog("使用说明", getResources().getString(R.string.string_use), "取消", "", id);
             return true;
         } else if (id == R.id.action_website) {
@@ -187,7 +190,6 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("youzh", "位置： " + position);
         mDragLayout.close();
         getData(position);
     }
@@ -197,7 +199,7 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
         if (position < 63) {
             String[] gameKind = getResources().getStringArray(R.array.game_kind);
             mToolBar.setTitle(gameKind[position]);
-            Net.getApi().getLottertGameList((position + 1) + "", new BackCookie<List<HotGame>>() {
+            Net.getApi(WebDefine.URL).getLottertGameList((position + 1) + "", new BackCookie<List<HotGame>>() {
                         @Override
                         public void success(List<HotGame> hotGames, Response response) {
                             super.success(hotGames, response);
@@ -220,7 +222,6 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
                         @Override
                         public void failure(RetrofitError error) {
                             super.failure(error);
-                            Log.i("youzh", "clickPosition: " + clickPosition + " position: " + position);
                             if (clickPosition != position) {
                                 mGameLists.clear();
                                 mainRecyclerAdapter.notifyDataSetChanged();
@@ -233,7 +234,7 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
             );
         } else {
             mToolBar.setTitle("热门预测");
-            Net.getApi().getLotteryHotList(new BackCookie<List<HotGame>>() {
+            Net.getApi(WebDefine.URL).getLotteryHotList(new BackCookie<List<HotGame>>() {
                 @Override
                 public void success(List<HotGame> hotGames, Response response) {
                     super.success(hotGames, response);
@@ -257,7 +258,6 @@ public class MainActivity extends BaseActionBarActivity implements AdapterView.O
                 @Override
                 public void failure(RetrofitError error) {
                     super.failure(error);
-                    Log.e("youzh", "clickPosition: " + clickPosition + " position: " + position);
                     if (clickPosition != position) {
                         mGameLists.clear();
                         mainRecyclerAdapter.notifyDataSetChanged();
